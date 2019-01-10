@@ -11,6 +11,7 @@
     <modules>
         <module>bee-sso-support</module>
         <module>bee-sso-components</module>
+        <module>bee-sso-core</module>
     </modules>
 
     <properties>

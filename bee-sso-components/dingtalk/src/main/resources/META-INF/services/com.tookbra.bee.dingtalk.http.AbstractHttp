@@ -1,0 +1,2 @@
+com.tookbra.bee.dingtalk.http.OkHttpClient
+com.tookbra.bee.dingtalk.http.ApacheHttpClient

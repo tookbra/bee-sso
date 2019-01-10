@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.net.Proxy;
+
 /**
  * @author tookbra
  * @date 2019/1/9
@@ -14,7 +16,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "dingtalk")
 public class DingTalkProperties {
 
-
     /**
      * 应用的key,唯一标识
      */
@@ -23,7 +24,9 @@ public class DingTalkProperties {
      * 应用的密钥
      */
     private String appSecret;
-
+    /**
+     * http配置
+     */
     private HttpConfig httpConfig;
 
     @Data
@@ -36,6 +39,10 @@ public class DingTalkProperties {
          * 建立链接的超时时间
          */
         private int connectionTimeout = 5000;
+        /**
+         * 空闲连接数
+         */
+        private int idleConnTotal;
         /**
          * 空闲链接的超时时间,
          */
@@ -56,6 +63,25 @@ public class DingTalkProperties {
          * 是否重试
          */
         private boolean retry = false;
+        /**
+         * 是否启用代理
+         */
+        private boolean enableProxy = false;
+        /**
+         * 代理地址
+         */
+        private String proxyUri = "127.0.0.1";
+        /**
+         * 代理端口
+         */
+        private Integer proxyPort;
+        /**
+         * 代理类型
+         */
+        private Proxy.Type proxyType = Proxy.Type.HTTP;
+        /**
+         * 最大重试次数
+         */
+        private Integer maxRetryCount = 0;
     }
-
 }
