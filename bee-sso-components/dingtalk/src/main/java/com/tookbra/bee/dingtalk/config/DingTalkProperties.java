@@ -1,5 +1,6 @@
 package com.tookbra.bee.dingtalk.config;
 
+import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -25,9 +26,15 @@ public class DingTalkProperties {
      */
     private String appSecret;
     /**
+     * 有效期 秒
+     */
+    private Integer availablePeriod = 7200;
+    /**
      * http配置
      */
     private HttpConfig httpConfig;
+
+    private HttpClientEnum httpClient;
 
     @Data
     public static class HttpConfig {
@@ -83,5 +90,9 @@ public class DingTalkProperties {
          * 最大重试次数
          */
         private Integer maxRetryCount = 0;
+        /**
+         * 休眠时间
+         */
+        private Integer retrySleepMillis = 100;
     }
 }

@@ -1,8 +1,7 @@
 package com.tookbra.bee.dingtalk.http;
 
 
-import com.tookbra.bee.dingtalk.config.DingTalkProperties;
-import lombok.Data;
+import java.io.IOException;
 
 /**
  *
@@ -10,21 +9,36 @@ import lombok.Data;
  * @date 2019/1/9
  * @description
  */
-@Data
-public abstract class HttpClient {
+public interface HttpClient {
 
-
-    public DingTalkProperties.HttpConfig httpConfig;
 
     /**
-     *
+     * 创建http
      */
-    public abstract void createHttpClient();
+    void createHttpClient();
 
-    public abstract String post();
+    /**
+     * post请求
+     * @param url
+     * @param data
+     * @return
+     * @throws IOException
+     */
+    String post(String url, String data) throws IOException;
 
-    public abstract String get();
+    /**
+     * get请求
+     * @param url
+     * @param param
+     * @return
+     * @throws IOException
+     */
+    String get(String url, String param) throws IOException;
 
-    public abstract String name();
+    /**
+     * http客户端名称
+     * @return
+     */
+    String getName();
 
 }

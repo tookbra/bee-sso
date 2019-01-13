@@ -1,10 +1,12 @@
 package com.tookbra.bee.dingtalk.http;
 
 
+import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.ConnectionPool;
-import okhttp3.Dispatcher;
+import okhttp3.*;
+import org.apache.http.client.HttpResponseException;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
@@ -15,10 +17,10 @@ import java.util.concurrent.TimeUnit;
  * @description
  */
 @Slf4j
-public class OkHttpClient extends HttpClient {
+public class OkHttpClient extends HttpClientFactory implements HttpClient  {
 
 
-    okhttp3.OkHttpClient okHttpClient = null;
+    okhttp3.OkHttpClient okHttpClient;
 
     @Override
     public void createHttpClient() {
@@ -43,17 +45,38 @@ public class OkHttpClient extends HttpClient {
     }
 
     @Override
-    public String post() {
-        return null;
+    public String post(String url, String data) throws IOException {
+        RequestBody body = RequestBody.create(MediaType.parse("json"), data);
+        Request request = new Request.Builder().url(url).post(body).build();
+        Response response = okHttpClient.newCall(request).execute();
+        return this.filterResponse(response);
     }
 
     @Override
-    public String get() {
-        return null;
+    public String get(String url, String param) throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        Response response = okHttpClient.newCall(request).execute();
+        return this.filterResponse(response);
     }
 
     @Override
-    public String name() {
-        return null;
+    public String getName() {
+        return HttpClientEnum.OKHTTP.name();
+    }
+
+    /**
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    private String filterResponse(Response response) throws IOException {
+        if (response.isSuccessful()) {
+            String result = response.body().string();
+            super.filterResult(result);
+            return result;
+        } else {
+            throw new HttpResponseException(response.code(), response.message());
+        }
     }
 }

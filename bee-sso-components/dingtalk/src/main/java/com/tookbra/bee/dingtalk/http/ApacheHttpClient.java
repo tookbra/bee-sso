@@ -1,11 +1,22 @@
 package com.tookbra.bee.dingtalk.http;
 
+import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
+import com.tookbra.bee.dingtalk.exception.DingTalkException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpHost;
+import org.apache.http.*;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
 
 /**
  * @author tookbra
@@ -13,9 +24,9 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
  * @description
  */
 @Slf4j
-public class ApacheHttpClient extends HttpClient {
+public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
 
-    CloseableHttpClient httpClient =  null;
+    CloseableHttpClient httpClient;
 
     @Override
     public void createHttpClient() {
@@ -30,7 +41,6 @@ public class ApacheHttpClient extends HttpClient {
                 .setRedirectsEnabled(super.httpConfig.isRetry())
                 .build();
 
-
         httpClient = HttpClients.custom()
                 .setDefaultRequestConfig(requestConfig)
                 .setConnectionManager(poolHttpManager)
@@ -40,17 +50,49 @@ public class ApacheHttpClient extends HttpClient {
     }
 
     @Override
-    public String post() {
-        return null;
+    public String post(String url, String data) throws IOException {
+        StringEntity se = new StringEntity(data, ContentType.APPLICATION_FORM_URLENCODED);
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(se);
+
+        try(CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
+            return this.filterResponse(httpResponse);
+        } finally {
+            httpPost.releaseConnection();
+        }
     }
 
     @Override
-    public String get() {
-        return null;
+    public String get(String url, String param) throws IOException {
+        HttpGet httpGet = new HttpGet(url);
+        try(CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
+            String result = EntityUtils.toString(httpResponse.getEntity(), Consts.UTF_8);
+            super.filterResult(result);
+            return result;
+        } finally {
+            httpGet.releaseConnection();
+        }
     }
 
     @Override
-    public String name() {
-        return null;
+    public String getName() {
+        return HttpClientEnum.APACHE.name();
+    }
+
+    /**
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    private String filterResponse(CloseableHttpResponse response) throws IOException, DingTalkException {
+        StatusLine statusLine = response.getStatusLine();
+        if(statusLine.getStatusCode() == HttpStatus.SC_OK) {
+            String result = EntityUtils.toString(response.getEntity(), Consts.UTF_8);
+            super.filterResult(result);
+            return result;
+        } else {
+            throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+        }
     }
 }
