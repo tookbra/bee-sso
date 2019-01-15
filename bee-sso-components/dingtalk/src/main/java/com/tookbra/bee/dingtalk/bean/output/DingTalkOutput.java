@@ -1,4 +1,4 @@
-package com.tookbra.bee.dingtalk.bean.result;
+package com.tookbra.bee.dingtalk.bean.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -14,8 +14,9 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-public abstract class BaseResult implements Serializable {
+public abstract class DingTalkOutput implements Serializable {
 
+    private static final long serialVersionUID = -6247817857607343618L;
     /**
      * 返回码
      */
@@ -26,4 +27,8 @@ public abstract class BaseResult implements Serializable {
      */
     @JsonProperty("errmsg")
     private String errorMsg;
+    /**
+     * 在分页查询时返回，代表是否还有下一页更多数据
+     */
+    private boolean hasMore;
 }

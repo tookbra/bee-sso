@@ -1,7 +1,7 @@
-package com.tookbra.bee.dingtalk.bean.result.addressbook;
+package com.tookbra.bee.dingtalk.bean.output.addressbook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.tookbra.bee.dingtalk.bean.result.BaseResult;
+import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class UserInfo extends BaseResult {
+public class UserInfoOutput extends DingTalkOutput {
     private static final long serialVersionUID = -5874714736800599514L;
 
     /**

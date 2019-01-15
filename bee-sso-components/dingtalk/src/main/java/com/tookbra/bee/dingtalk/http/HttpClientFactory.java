@@ -1,11 +1,11 @@
 package com.tookbra.bee.dingtalk.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tookbra.bee.dingtalk.bean.result.BaseResult;
+import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
 import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.enums.DingTalkCodeEnum;
 import com.tookbra.bee.dingtalk.exception.DingTalkException;
 import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +20,6 @@ public abstract class HttpClientFactory {
 
     protected DingTalkProperties.HttpConfig httpConfig;
 
-    protected ObjectMapper objectMapper = new ObjectMapper();
-
     protected DingTalkRepository dingTalkRepository;
 
 
@@ -31,7 +29,7 @@ public abstract class HttpClientFactory {
      * @return
      */
     protected String filterResult(String result) throws DingTalkException {
-        BaseResult baseResult = this.objectMapper.convertValue(result, BaseResult.class);
+        DingTalkOutput baseResult = JackSonUtil.objectMapper.convertValue(result, DingTalkOutput.class);
         if(baseResult.getErrorCode() != DingTalkCodeEnum.SUCCESS.getCode()) {
             throw new DingTalkException(baseResult.getErrorCode(), baseResult.getErrorMsg());
         }

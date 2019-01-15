@@ -21,9 +21,16 @@ public class DingTalkException extends RuntimeException {
      */
     private String message;
 
+    public DingTalkException() {
+        super();
+    }
+
+    public DingTalkException(String message) {
+        super(message);
+    }
+
     public DingTalkException(Integer errorCode, String message) {
         this.errorCode = errorCode;
         this.message = message;
     }
-
 }
