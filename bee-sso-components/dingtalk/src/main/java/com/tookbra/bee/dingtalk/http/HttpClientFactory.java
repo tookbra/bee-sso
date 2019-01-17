@@ -9,6 +9,8 @@ import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+
 /**
  * @author tookbra
  * @date 2019/1/11
@@ -29,9 +31,14 @@ public abstract class HttpClientFactory {
      * @return
      */
     protected String filterResult(String result) throws DingTalkException {
-        DingTalkOutput baseResult = JackSonUtil.objectMapper.convertValue(result, DingTalkOutput.class);
-        if(baseResult.getErrorCode() != DingTalkCodeEnum.SUCCESS.getCode()) {
-            throw new DingTalkException(baseResult.getErrorCode(), baseResult.getErrorMsg());
+        try {
+            DingTalkOutput baseResult = JackSonUtil.objectMapper.readValue(result, DingTalkOutput.class);
+            if (baseResult.getErrorCode() != DingTalkCodeEnum.SUCCESS.getCode()) {
+                throw new DingTalkException(baseResult.getErrorCode(), baseResult.getErrorMsg());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DingTalkException(-9999, "json parse error");
         }
         return result;
     }

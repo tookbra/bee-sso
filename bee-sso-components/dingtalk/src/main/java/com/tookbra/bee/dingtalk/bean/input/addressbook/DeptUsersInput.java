@@ -3,6 +3,7 @@ package com.tookbra.bee.dingtalk.bean.input.addressbook;
 import com.tookbra.bee.dingtalk.bean.AbstractDingTalkInput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUsersOutput;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -12,8 +13,10 @@ import lombok.ToString;
  */
 @Data
 @ToString
+@EqualsAndHashCode(callSuper = false)
 public class DeptUsersInput extends AbstractDingTalkInput<DeptUsersOutput> {
 
+    private static final long serialVersionUID = 6779900219386048511L;
     /**
      * 部门id
      */

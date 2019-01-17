@@ -17,7 +17,7 @@ public class HttpTest {
         DingTalkProperties.HttpConfig httpConfig = new DingTalkProperties.HttpConfig();
         HttpClient httpClient = new ApacheHttpClient();
         ((ApacheHttpClient) httpClient).setHttpConfig(httpConfig);
-        httpClient.createHttpClient();
-        httpClient.get("http://www.baidu.com","");
+        httpClient.init(httpConfig, null);
+        httpClient.get("http://www.baidu.com",null);
     }
 }

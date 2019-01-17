@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookbra.bee.dingtalk.bean.AbstractDingTalkInput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.UserInfoOutput;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -13,8 +14,10 @@ import lombok.ToString;
  */
 @Data
 @ToString
+@EqualsAndHashCode(callSuper = false)
 public class UserInfoInput extends AbstractDingTalkInput<UserInfoOutput> {
 
+    private static final long serialVersionUID = -4016423099994707686L;
     /**
      * 企业内的userid，企业用来唯一标识一个用户
      */

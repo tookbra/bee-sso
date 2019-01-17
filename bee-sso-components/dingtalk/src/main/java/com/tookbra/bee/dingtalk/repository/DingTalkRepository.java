@@ -9,8 +9,12 @@ import java.util.concurrent.locks.Lock;
  */
 public interface DingTalkRepository {
 
-
+    /**
+     * 获取锁
+     * @return
+     */
     Lock getLock();
+
     /**
      * 获取token
      * @return

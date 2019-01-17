@@ -1,7 +1,11 @@
 package com.tookbra.bee.dingtalk.http;
 
 
+import com.tookbra.bee.dingtalk.config.DingTalkProperties;
+import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+
 import java.io.IOException;
+import java.util.Map;
 
 /**
  *
@@ -11,20 +15,21 @@ import java.io.IOException;
  */
 public interface HttpClient {
 
-
     /**
-     * 创建http
+     *
+     * @param httpConfig
+     * @param dingTalkRepository
      */
-    void createHttpClient();
+    void init(DingTalkProperties.HttpConfig httpConfig, DingTalkRepository dingTalkRepository);
 
     /**
      * post请求
      * @param url
-     * @param data
+     * @param param
      * @return
      * @throws IOException
      */
-    String post(String url, String data) throws IOException;
+    String post(String url, Map<String, String> param) throws IOException;
 
     /**
      * get请求
@@ -33,7 +38,7 @@ public interface HttpClient {
      * @return
      * @throws IOException
      */
-    String get(String url, String param) throws IOException;
+    String get(String url, Map<String, String> param) throws IOException;
 
     /**
      * http客户端名称

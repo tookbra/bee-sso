@@ -1,9 +1,9 @@
 package com.tookbra.bee.dingtalk.api;
 
 import com.tookbra.bee.dingtalk.config.DingTalkProperties;
-import com.tookbra.bee.dingtalk.http.executor.HttpExecutor;
+import com.tookbra.bee.dingtalk.http.HttpClient;
+import com.tookbra.bee.dingtalk.http.executor.DefaultHttpExecutor;
 import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
-import lombok.Data;
 
 
 /**
@@ -11,17 +11,12 @@ import lombok.Data;
  * @date 2019/1/14
  * @description
  */
-@Data
-public abstract class AbstractDingTalkService implements DingTalkService {
+public abstract class AbstractDingTalkService extends DefaultHttpExecutor {
 
-    private DingTalkRepository dingTalkRepository;
 
-    private DingTalkProperties dingTalkProperties;
-
-    private HttpExecutor httpExecutor;
-
-    @Override
-    public String getAccessToken() {
-        return getAccessToken(false);
+    public AbstractDingTalkService(HttpClient httpClient,
+                                   DingTalkProperties.HttpConfig httpConfig,
+                                   DingTalkRepository dingTalkRepository) {
+        super(httpClient, httpConfig, dingTalkRepository);
     }
 }

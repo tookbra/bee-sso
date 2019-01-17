@@ -3,6 +3,7 @@ package com.tookbra.bee.dingtalk.bean.output.addressbook;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Data
 @ToString
+@EqualsAndHashCode(callSuper = false)
 public class DeptUserInfoOutput extends DingTalkOutput {
     private static final long serialVersionUID = -3737145400627400612L;
 

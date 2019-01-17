@@ -1,5 +1,6 @@
 package com.tookbra.bee.dingtalk.bean.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -14,7 +15,8 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-public abstract class DingTalkOutput implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DingTalkOutput implements Serializable {
 
     private static final long serialVersionUID = -6247817857607343618L;
     /**

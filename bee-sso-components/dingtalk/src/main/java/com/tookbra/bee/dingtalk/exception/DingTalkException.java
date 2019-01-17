@@ -1,6 +1,7 @@
 package com.tookbra.bee.dingtalk.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author tookbra
@@ -8,6 +9,7 @@ import lombok.Data;
  * @description
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class DingTalkException extends RuntimeException {
 
     private static final long serialVersionUID = 1916273941071191845L;

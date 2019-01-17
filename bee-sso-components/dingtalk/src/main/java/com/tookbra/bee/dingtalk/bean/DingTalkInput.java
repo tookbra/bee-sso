@@ -2,6 +2,8 @@ package com.tookbra.bee.dingtalk.bean;
 
 import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
 
+import java.util.Map;
+
 /**
  * @author tookbra
  * @date 2019/1/14
@@ -12,13 +14,24 @@ public interface DingTalkInput<T extends DingTalkOutput> {
     /**
      *
      */
-    public Class<T> getClasses();
+    Class<T> getClasses();
 
     /**
      *
      * @return
      */
-    public String getParam();
+    String getParam();
 
+    /**
+     *
+     * @return
+     */
+    String getUrl();
+
+    /**
+     *
+     * @return
+     */
+    Map<String, String> toMap();
 
 }

@@ -12,19 +12,17 @@ public interface HttpExecutor {
 
 
     /**
-     *
+     * http post
      * @param input
-     * @param <T>
      * @return
      */
-    public <T extends DingTalkOutput>T post(DingTalkInput<T> input);
+    <T extends DingTalkOutput>T post(DingTalkInput<T> input);
 
     /**
-     *
+     * http get
      * @param input
-     * @param <T>
      * @return
      */
-    public <T extends DingTalkOutput>T get(DingTalkInput<T> input);
+    <T extends DingTalkOutput>T get(DingTalkInput<T> input);
 
 }

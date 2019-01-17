@@ -1,14 +1,20 @@
 package com.tookbra.bee.dingtalk.http;
 
 
+import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
+import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.URISyntaxException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,8 +28,15 @@ public class OkHttpClient extends HttpClientFactory implements HttpClient  {
 
     okhttp3.OkHttpClient okHttpClient;
 
+
     @Override
-    public void createHttpClient() {
+    public void init(DingTalkProperties.HttpConfig httpConfig, DingTalkRepository dingTalkRepository) {
+        this.httpConfig = httpConfig;
+        this.dingTalkRepository = dingTalkRepository;
+        this.createHttpClient();
+    }
+
+    private void createHttpClient() {
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequests(super.httpConfig.getMaxTotalConn());
         dispatcher.setMaxRequestsPerHost(super.httpConfig.getMaxConnPerHost());
@@ -45,18 +58,26 @@ public class OkHttpClient extends HttpClientFactory implements HttpClient  {
     }
 
     @Override
-    public String post(String url, String data) throws IOException {
-        RequestBody body = RequestBody.create(MediaType.parse("json"), data);
+    public String post(String url, Map<String, String> params) throws IOException {
+        RequestBody body = RequestBody.create(MediaType.parse("json"), JackSonUtil.objectMapper.writeValueAsBytes(params));
         Request request = new Request.Builder().url(url).post(body).build();
         Response response = okHttpClient.newCall(request).execute();
         return this.filterResponse(response);
     }
 
     @Override
-    public String get(String url, String param) throws IOException {
-        Request request = new Request.Builder().url(url).build();
-        Response response = okHttpClient.newCall(request).execute();
-        return this.filterResponse(response);
+    public String get(String url, Map<String, String> param) throws IOException {
+        try {
+            URIBuilder uriBuilder = new URIBuilder(url);
+            param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+
+            Request request = new Request.Builder().url(uriBuilder.toString()).build();
+            Response response = okHttpClient.newCall(request).execute();
+            return this.filterResponse(response);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            throw new IOException();
+        }
     }
 
     @Override

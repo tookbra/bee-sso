@@ -1,7 +1,10 @@
 package com.tookbra.bee.dingtalk.http;
 
+import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
 import com.tookbra.bee.dingtalk.exception.DingTalkException;
+import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.*;
 import org.apache.http.client.HttpResponseException;
@@ -9,6 +12,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +21,8 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Map;
 
 /**
  * @author tookbra
@@ -29,7 +35,13 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
     CloseableHttpClient httpClient;
 
     @Override
-    public void createHttpClient() {
+    public void init(DingTalkProperties.HttpConfig httpConfig, DingTalkRepository dingTalkRepository) {
+        this.httpConfig = httpConfig;
+        this.dingTalkRepository = dingTalkRepository;
+        this.createHttpClient();
+    }
+
+    private void createHttpClient() {
         PoolingHttpClientConnectionManager poolHttpManager = new PoolingHttpClientConnectionManager();
         poolHttpManager.setMaxTotal(super.httpConfig.getMaxTotalConn());
         poolHttpManager.setDefaultMaxPerRoute(super.httpConfig.getMaxConnPerHost());
@@ -50,8 +62,8 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
     }
 
     @Override
-    public String post(String url, String data) throws IOException {
-        StringEntity se = new StringEntity(data, ContentType.APPLICATION_FORM_URLENCODED);
+    public String post(String url, Map<String, String> param) throws IOException {
+        StringEntity se = new StringEntity(JackSonUtil.objectMapper.writeValueAsString(param), ContentType.APPLICATION_JSON);
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(se);
 
@@ -63,14 +75,23 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
     }
 
     @Override
-    public String get(String url, String param) throws IOException {
-        HttpGet httpGet = new HttpGet(url);
-        try(CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
-            String result = EntityUtils.toString(httpResponse.getEntity(), Consts.UTF_8);
-            super.filterResult(result);
-            return result;
-        } finally {
-            httpGet.releaseConnection();
+    public String get(String url, Map<String, String> param) throws IOException {
+        try {
+            URIBuilder uriBuilder = new URIBuilder(url);
+            if(param !=  null) {
+                param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+            }
+            HttpGet httpGet = new HttpGet(uriBuilder.build());
+            try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
+                String result = EntityUtils.toString(httpResponse.getEntity(), Consts.UTF_8);
+                super.filterResult(result);
+                return result;
+            } finally {
+                httpGet.releaseConnection();
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            throw new IOException();
         }
     }
 
