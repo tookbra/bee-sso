@@ -45,7 +45,7 @@ public class DingTalkServiceImpl extends AbstractDingTalkService {
                 this.getDingTalkRepository().updateAccessToken(tokenOutput.getAccessToken(), tokenOutput.getExpiresIn());
             }
         } catch (IOException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         } finally {
             lock.unlock();
         }

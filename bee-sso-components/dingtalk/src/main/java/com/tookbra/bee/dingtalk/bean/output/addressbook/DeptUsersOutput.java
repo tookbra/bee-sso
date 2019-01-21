@@ -1,5 +1,6 @@
 package com.tookbra.bee.dingtalk.bean.output.addressbook;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,5 +21,6 @@ public class DeptUsersOutput extends DingTalkOutput {
     /**
      * userId列表
      */
-    private List<String> userIds;
+    @JsonProperty("userIds")
+    private List<Long> userIds;
 }

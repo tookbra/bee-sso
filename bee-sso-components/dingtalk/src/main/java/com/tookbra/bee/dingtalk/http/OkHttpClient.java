@@ -59,7 +59,8 @@ public class OkHttpClient extends HttpClientFactory implements HttpClient  {
 
     @Override
     public String post(String url, Map<String, String> params) throws IOException {
-        RequestBody body = RequestBody.create(MediaType.parse("json"), JackSonUtil.objectMapper.writeValueAsBytes(params));
+        RequestBody body = RequestBody.create(MediaType.parse("json"),
+                params == null ? null : JackSonUtil.objectMapper.writeValueAsBytes(params));
         Request request = new Request.Builder().url(url).post(body).build();
         Response response = okHttpClient.newCall(request).execute();
         return this.filterResponse(response);
@@ -69,7 +70,9 @@ public class OkHttpClient extends HttpClientFactory implements HttpClient  {
     public String get(String url, Map<String, String> param) throws IOException {
         try {
             URIBuilder uriBuilder = new URIBuilder(url);
-            param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+            if(param != null) {
+                param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+            }
 
             Request request = new Request.Builder().url(uriBuilder.toString()).build();
             Response response = okHttpClient.newCall(request).execute();

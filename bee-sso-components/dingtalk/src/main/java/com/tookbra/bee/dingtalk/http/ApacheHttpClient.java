@@ -63,9 +63,11 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
 
     @Override
     public String post(String url, Map<String, String> param) throws IOException {
-        StringEntity se = new StringEntity(JackSonUtil.objectMapper.writeValueAsString(param), ContentType.APPLICATION_JSON);
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(se);
+        if(param != null) {
+            StringEntity se = new StringEntity(JackSonUtil.objectMapper.writeValueAsString(param), ContentType.APPLICATION_JSON);
+            httpPost.setEntity(se);
+        }
 
         try(CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
             return this.filterResponse(httpResponse);

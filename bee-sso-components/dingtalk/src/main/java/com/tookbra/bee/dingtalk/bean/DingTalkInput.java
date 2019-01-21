@@ -26,12 +26,6 @@ public interface DingTalkInput<T extends DingTalkOutput> {
      *
      * @return
      */
-    String getUrl();
-
-    /**
-     *
-     * @return
-     */
     Map<String, String> toMap();
 
 }

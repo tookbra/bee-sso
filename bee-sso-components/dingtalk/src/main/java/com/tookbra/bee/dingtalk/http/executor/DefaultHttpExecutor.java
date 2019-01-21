@@ -37,34 +37,34 @@ public abstract class DefaultHttpExecutor implements HttpExecutor, DingTalkServi
 
 
     @Override
-    public <T extends DingTalkOutput>T get(DingTalkInput<T> input) {
-        return this.execute(input, HttpMethodEnum.GET);
+    public <T extends DingTalkOutput>T get(String url, DingTalkInput<T> input) {
+        return this.execute(url, input, HttpMethodEnum.GET);
     }
 
     @Override
-    public <T extends DingTalkOutput>T post(DingTalkInput<T> input) {
-        return this.execute(input, HttpMethodEnum.POST);
+    public <T extends DingTalkOutput>T post(String url, DingTalkInput<T> input) {
+        return this.execute(url, input, HttpMethodEnum.POST);
     }
 
-    private <T extends DingTalkOutput>T execute(DingTalkInput<T> input, HttpMethodEnum httpMethodEnum) {
+    private <T extends DingTalkOutput>T execute(String url, DingTalkInput<T> input, HttpMethodEnum httpMethodEnum) {
         int retryCount = 0;
         do {
             try {
                 String accessToken = getAccessToken(false);
-                StringBuilder sb = new StringBuilder(input.getUrl());
-                String url = sb.append((input.getUrl().contains("?") ? "&" : "?") + "access_token=" + accessToken).toString();
+                StringBuilder sb = new StringBuilder(url);
+                url = sb.append((url.contains("?") ? "&" : "?") + "access_token=" + accessToken).toString();
                 String result = "";
                 switch (httpMethodEnum) {
                     case GET:
-                        result = httpClient.get(url, input.toMap());
+                        result = httpClient.get(url, input == null ? null : input.toMap());
                         break;
                     case POST:
-                        result = httpClient.post(url, input.toMap());
+                        result = httpClient.post(url, input == null ? null : input.toMap());
                         break;
                     default:
                 }
-                log.debug("请求地址:{}, 请求参数:{}, 请求结果:{}", input.getUrl(), input.getParam(), result);
-                return JackSonUtil.objectMapper.convertValue(result, input.getClasses());
+                log.debug("请求地址:{}, 请求参数:{}, 请求结果:{}", url, input.getParam(), result);
+                return JackSonUtil.objectMapper.readValue(result, input.getClasses());
             } catch (DingTalkException exception) {
                 if (exception.getErrorCode().equals(DingTalkCodeEnum.TOKEN_ERROR.getCode())
                         || exception.getErrorCode().equals(DingTalkCodeEnum.ILLEGAL_TOKEN.getCode())
@@ -83,6 +83,11 @@ public abstract class DefaultHttpExecutor implements HttpExecutor, DingTalkServi
                     } catch (InterruptedException e1) {
                         throw new RuntimeException(e1);
                     }
+                }
+
+                if(!exception.getErrorCode().equals(DingTalkCodeEnum.SUCCESS.getCode())) {
+                    log.error("请求地址:{}, 请求参数:{}, 错误信息:{}", url, input.getParam(), exception.getMessage());
+                    throw exception;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

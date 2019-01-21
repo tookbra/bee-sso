@@ -21,19 +21,15 @@ public abstract class AbstractDingTalkInput<T extends DingTalkOutput> implements
     /**
      * 支持分页查询，与size参数同时设置时才生效，此参数代表偏移量
      */
-    private long offset;
+    private long offset = 0;
     /**
      * 支持分页查询，与offset参数同时设置时才生效，此参数代表分页大小，最大100
      */
-    private int size;
+    private int size = 100;
     /**
      * 排序规则
      */
     private String order;
-    /**
-     * 请求地址
-     */
-    private String url;
 
     /**
      *
@@ -58,6 +54,8 @@ public abstract class AbstractDingTalkInput<T extends DingTalkOutput> implements
                 e.printStackTrace();
             }
         });
+        map.put("offset", String.valueOf(this.getOffset()));
+        map.put("size", String.valueOf(this.getSize()));
         return map;
     }
 

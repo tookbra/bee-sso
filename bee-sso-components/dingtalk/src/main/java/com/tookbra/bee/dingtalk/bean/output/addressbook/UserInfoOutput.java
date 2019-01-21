@@ -37,7 +37,7 @@ public class UserInfoOutput extends DingTalkOutput {
      * 在对应的部门中的排序，Map结构的json字符串，key是部门的Id，value是人员在这个部门的排序值
      * {1:71738366882504}
      */
-    private Map orderInDepts;
+    private String orderInDepts;
     /**
      * 是否为企业的管理员，true表示是，false表示不是
      */
@@ -55,7 +55,7 @@ public class UserInfoOutput extends DingTalkOutput {
      * 在对应的部门中是否为主管：Map结构的json字符串，key是部门的Id，value是人员在这个部门中是否为主管，true表示是，false表示不是
      * {1:false}
      */
-    private Map isLeaderInDepts;
+    private String isLeaderInDepts;
     /**
      * 是否号码隐藏，true表示隐藏，false表示不隐藏
      */
@@ -63,7 +63,7 @@ public class UserInfoOutput extends DingTalkOutput {
     /**
      * 成员所属部门id列表
      */
-    private List<Integer> department;
+    private List<Long> department;
     /**
      * 职位信息
      */

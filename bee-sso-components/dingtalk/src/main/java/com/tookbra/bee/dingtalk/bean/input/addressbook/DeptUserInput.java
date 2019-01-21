@@ -2,6 +2,7 @@ package com.tookbra.bee.dingtalk.bean.input.addressbook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookbra.bee.dingtalk.bean.AbstractDingTalkInput;
+import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUserInfoOutput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUsersOutput;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class DeptUserInput extends AbstractDingTalkInput<DeptUsersOutput> {
+public class DeptUserInput extends AbstractDingTalkInput<DeptUserInfoOutput> {
 
     private static final long serialVersionUID = 616908457059721114L;
     /**
@@ -30,8 +31,8 @@ public class DeptUserInput extends AbstractDingTalkInput<DeptUsersOutput> {
 
 
     @Override
-    public Class<DeptUsersOutput> getClasses() {
-        return DeptUsersOutput.class;
+    public Class<DeptUserInfoOutput> getClasses() {
+        return DeptUserInfoOutput.class;
     }
 
     @Override

@@ -36,4 +36,8 @@ public class DingTalkServiceTest {
     public void getAccessTokenTest() {
         dingTalkService.getAccessToken(false);
     }
+
+    public DingTalkService getDingTalkService() {
+        return dingTalkService;
+    }
 }
