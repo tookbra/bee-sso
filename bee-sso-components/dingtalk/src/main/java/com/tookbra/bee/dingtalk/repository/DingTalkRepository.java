@@ -32,11 +32,6 @@ public interface DingTalkRepository {
      */
     boolean autoRefreshToken();
 
-    /**
-     * 更新token
-     * @param accessToken token
-     */
-    void updateToken(String accessToken);
 
     /**
      * token是否过期
@@ -49,6 +44,12 @@ public interface DingTalkRepository {
      * @param accessToken
      * @param expiresInSeconds
      */
-    void updateAccessToken(String accessToken, long expiresInSeconds);
+    void updateAccessToken(String accessToken, int expiresInSeconds);
+
+    /**
+     * 存储名称
+     * @return
+     */
+    String getName();
 
 }

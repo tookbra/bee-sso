@@ -1,5 +1,6 @@
 package com.tookbra.bee.dingtalk.repository;
 
+import com.tookbra.bee.dingtalk.enums.RepositoryEnum;
 import lombok.Data;
 
 import java.util.concurrent.locks.Lock;
@@ -37,19 +38,18 @@ public class InMemoryRepository implements DingTalkRepository {
     }
 
     @Override
-    public void updateToken(String accessToken) {
-        this.accessToken = accessToken;
-        this.expiresTime = 0;
-    }
-
-    @Override
     public boolean isAccessTokenExpired() {
         return System.currentTimeMillis() > this.expiresTime;
     }
 
     @Override
-    public synchronized void updateAccessToken(String accessToken, long expiresInSeconds) {
+    public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
         this.accessToken = accessToken;
         this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+    }
+
+    @Override
+    public String getName() {
+        return RepositoryEnum.IN_MEMORY.name();
     }
 }

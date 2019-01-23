@@ -1,0 +1,2 @@
+com.tookbra.bee.dingtalk.repository.InMemoryRepository
+com.tookbra.bee.dingtalk.repository.RedisRepository

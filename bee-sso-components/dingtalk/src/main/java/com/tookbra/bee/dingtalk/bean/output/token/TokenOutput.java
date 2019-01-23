@@ -26,5 +26,5 @@ public class TokenOutput extends DingTalkOutput {
      * 过期时间
      */
     @JsonProperty("expires_in")
-    private long expiresIn;
+    private Integer expiresIn;
 }
