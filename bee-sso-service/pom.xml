@@ -9,12 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bee-sso-components</artifactId>
+    <artifactId>bee-sso-service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>dingtalk</module>
-        <module>bee-sso-starter-log</module>
-        <module>bee-sso-consul-patch</module>
+        <module>bee-sso-account</module>
     </modules>
 
 

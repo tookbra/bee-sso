@@ -3,19 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>bee-sso</artifactId>
+        <artifactId>bee-sso-components</artifactId>
         <groupId>com.tookbra.bee</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bee-sso-components</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>dingtalk</module>
-        <module>bee-sso-starter-log</module>
-        <module>bee-sso-consul-patch</module>
-    </modules>
+    <artifactId>bee-sso-starter-log</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

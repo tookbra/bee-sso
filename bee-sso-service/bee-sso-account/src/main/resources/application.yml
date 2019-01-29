@@ -1,0 +1,13 @@
+logging:
+  level:
+    org.springframework.cloud.consul: DEBUG
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        tags: account
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        service-name: ${spring.application.name}
+      enabled: true
