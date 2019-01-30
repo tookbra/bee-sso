@@ -14,7 +14,6 @@
     <modules>
         <module>dingtalk</module>
         <module>bee-sso-starter-log</module>
-        <module>bee-sso-consul-patch</module>
     </modules>
 
 

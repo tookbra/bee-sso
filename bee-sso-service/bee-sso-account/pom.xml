@@ -19,10 +19,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.tookbra.bee</groupId>
-            <artifactId>bee-sso-consul-patch</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.tookbra.bee</groupId>
