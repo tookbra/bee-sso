@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.tookbra.bee.sso.core.config.MybatisDataSourceAutoConfiguration,\
+  com.tookbra.bee.sso.core.config.WebAutoConfiguration,\
+  com.tookbra.bee.sso.core.config.PropertiesAutoConfiguration
