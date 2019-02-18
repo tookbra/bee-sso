@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/bee-king?autoCommit=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&serverTimezone=CTT
+    username: root
+    password: 123456
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/
+
+mybatis-plus:
+  type-aliases-package: com.tookbra.bee.king.job.domain
