@@ -1,0 +1,13 @@
+eureka:
+  instance:
+    instance-id:  ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 15000
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/
