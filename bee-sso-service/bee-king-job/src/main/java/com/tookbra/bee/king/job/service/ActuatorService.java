@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tookbra.bee.king.job.dao.JobActuatorMapper;
 import com.tookbra.bee.king.job.domain.JobActuator;
-import com.tookbra.bee.king.job.params.input.ActuatorInput;
 import com.tookbra.bee.model.page.PageInfo;
-import com.tookbra.bee.sso.core.utils.TransferUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,11 +51,11 @@ public class ActuatorService extends ServiceImpl<JobActuatorMapper, JobActuator>
     }
 
     /**
-     * 删除执行器
+     * 移除执行器
      * @param jobActuator
      */
     @Transactional(rollbackFor = Exception.class)
-    public void deleteActuator(JobActuator jobActuator) {
+    public void removeActuator(JobActuator jobActuator) {
         super.removeById(jobActuator);
     }
 }

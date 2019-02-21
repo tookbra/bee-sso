@@ -37,9 +37,9 @@ public class ActuatorServiceTest extends BaseTest {
     }
 
     @Test
-    public void deleteActuatorTest() {
+    public void removeActuatorTest() {
         JobActuator jobActuator = new JobActuator();
         jobActuator.setId(4);
-        actuatorService.deleteActuator(jobActuator);
+        actuatorService.removeActuator(jobActuator);
     }
 }

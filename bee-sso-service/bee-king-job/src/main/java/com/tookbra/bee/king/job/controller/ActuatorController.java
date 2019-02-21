@@ -7,6 +7,7 @@ import com.tookbra.bee.king.job.service.ActuatorService;
 import com.tookbra.bee.model.page.PageInfo;
 import com.tookbra.bee.model.page.PageResult;
 import com.tookbra.bee.model.result.BaseResult;
+import com.tookbra.bee.sso.core.utils.TransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,37 @@ public class ActuatorController {
      */
     @PostMapping
     public BaseResult addActuator(ActuatorInput input) {
-        return null;
+        JobActuator jobActuator = new JobActuator();
+        TransferUtil.transfer(input, jobActuator);
+        actuatorService.saveActuator(jobActuator);
+        return BaseResult.success("");
+    }
 
+    /**
+     * 更新执行器
+     * @param id 执行器id
+     * @param input
+     * @return
+     */
+    @PutMapping("/{id}")
+    public BaseResult updateActuator(@PathVariable Integer id, ActuatorInput input) {
+        JobActuator jobActuator = new JobActuator();
+        TransferUtil.transfer(input, jobActuator);
+        jobActuator.setId(id);
+        actuatorService.updateActuator(jobActuator);
+        return BaseResult.success("");
+    }
+
+    /**
+     * 移除执行器
+     * @param id 执行器id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult removeActuator(@PathVariable Integer id) {
+        JobActuator jobActuator = new JobActuator();
+        jobActuator.setId(id);
+        actuatorService.removeActuator(jobActuator);
+        return BaseResult.success("");
     }
 }
