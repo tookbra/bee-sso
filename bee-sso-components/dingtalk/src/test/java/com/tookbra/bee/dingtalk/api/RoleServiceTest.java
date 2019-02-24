@@ -1,6 +1,7 @@
 package com.tookbra.bee.dingtalk.api;
 
-import com.tookbra.bee.dingtalk.api.impl.RoleServiceImpl;
+import com.tookbra.bee.dingtalk.api.addressBook.RoleService;
+import com.tookbra.bee.dingtalk.api.addressBook.impl.RoleServiceImpl;
 import com.tookbra.bee.dingtalk.bean.output.role.RoleListOutput;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,15 +1,13 @@
-package com.tookbra.bee.dingtalk.api.impl;
+package com.tookbra.bee.dingtalk.api.addressBook.impl;
 
 import com.tookbra.bee.dingtalk.api.DingTalkService;
-import com.tookbra.bee.dingtalk.api.UserService;
+import com.tookbra.bee.dingtalk.api.addressBook.UserService;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUserInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUsersInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.UserInfoInput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUserInfoOutput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUsersOutput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.UserInfoOutput;
-
-import java.util.List;
 
 /**
  * @author tookbra

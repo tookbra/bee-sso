@@ -1,7 +1,6 @@
 package com.tookbra.bee.dingtalk.bean.input.addressbook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.tookbra.bee.dingtalk.api.DingTalkService;
 import com.tookbra.bee.dingtalk.bean.AbstractDingTalkInput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.UserInfoOutput;
 import lombok.Data;

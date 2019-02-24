@@ -1,6 +1,7 @@
 package com.tookbra.bee.dingtalk.api;
 
-import com.tookbra.bee.dingtalk.api.impl.UserServiceImpl;
+import com.tookbra.bee.dingtalk.api.addressBook.UserService;
+import com.tookbra.bee.dingtalk.api.addressBook.UserServiceImpl;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUserInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUsersInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.UserInfoInput;

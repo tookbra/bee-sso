@@ -1,5 +1,6 @@
 package com.tookbra.bee.dingtalk.api;
 
+import com.tookbra.bee.dingtalk.api.addressBook.DingTalkService;
 import com.tookbra.bee.dingtalk.api.impl.DingTalkServiceImpl;
 import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.http.ApacheHttpClient;

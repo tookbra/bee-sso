@@ -1,4 +1,4 @@
-package com.tookbra.bee.dingtalk.api.impl;
+package com.tookbra.bee.dingtalk.api;
 
 import com.tookbra.bee.dingtalk.api.AbstractDingTalkService;
 import com.tookbra.bee.dingtalk.bean.input.GetTokenInput;

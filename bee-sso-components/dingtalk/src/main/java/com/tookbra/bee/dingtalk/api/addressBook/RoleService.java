@@ -1,4 +1,4 @@
-package com.tookbra.bee.dingtalk.api;
+package com.tookbra.bee.dingtalk.api.addressBook;
 
 import com.tookbra.bee.dingtalk.bean.output.role.RoleListOutput;
 

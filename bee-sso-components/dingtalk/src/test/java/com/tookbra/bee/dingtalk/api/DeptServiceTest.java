@@ -1,6 +1,7 @@
 package com.tookbra.bee.dingtalk.api;
 
-import com.tookbra.bee.dingtalk.api.impl.DeptServiceImpl;
+import com.tookbra.bee.dingtalk.api.addressBook.DeptService;
+import com.tookbra.bee.dingtalk.api.addressBook.impl.DeptServiceImpl;
 import com.tookbra.bee.dingtalk.bean.input.department.DepartmentListInput;
 import com.tookbra.bee.dingtalk.bean.output.department.DepartmentInfoOutput;
 import com.tookbra.bee.dingtalk.bean.output.department.DepartmentListOutput;
