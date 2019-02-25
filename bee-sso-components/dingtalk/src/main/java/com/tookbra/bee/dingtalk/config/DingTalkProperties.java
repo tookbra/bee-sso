@@ -26,6 +26,10 @@ public class DingTalkProperties {
      */
     private String appSecret;
     /**
+     * agentId
+     */
+    private Integer agentId;
+    /**
      * 有效期 秒
      */
     private Integer availablePeriod = 7200;

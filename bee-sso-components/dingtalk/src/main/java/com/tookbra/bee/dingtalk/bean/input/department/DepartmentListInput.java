@@ -20,7 +20,7 @@ public class DepartmentListInput extends AbstractDingTalkInput<DepartmentListOut
      * 是否递归部门的全部子部门，ISV微应用固定传递false
      */
     @JsonProperty("fetch_child")
-    private boolean fetchChild;
+    private boolean fetchChild = true;
     /**
      * 父部门id（如果不传，默认部门为根部门，根部门ID为1）
      */

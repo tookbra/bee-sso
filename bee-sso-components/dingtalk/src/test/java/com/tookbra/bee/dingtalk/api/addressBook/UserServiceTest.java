@@ -1,11 +1,12 @@
-package com.tookbra.bee.dingtalk.api;
+package com.tookbra.bee.dingtalk.api.addressBook;
 
-import com.tookbra.bee.dingtalk.api.addressBook.UserService;
-import com.tookbra.bee.dingtalk.api.addressBook.UserServiceImpl;
+import com.tookbra.bee.dingtalk.api.DingTalkServiceTest;
+import com.tookbra.bee.dingtalk.api.addressBook.impl.UserServiceImpl;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUserInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.DeptUsersInput;
 import com.tookbra.bee.dingtalk.bean.input.addressbook.UserInfoInput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUserInfoOutput;
+import com.tookbra.bee.dingtalk.bean.output.addressbook.DeptUsersOutput;
 import com.tookbra.bee.dingtalk.bean.output.addressbook.UserInfoOutput;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class UserServiceTest extends DingTalkServiceTest {
     @Test
     public void getUserInfoTest() {
         UserInfoInput userInfoInput = new UserInfoInput();
-        userInfoInput.setUserId("01053211253410");
+        userInfoInput.setUserId("01023131539572");
         UserInfoOutput userInfoOutput = userService.getUserInfo(userInfoInput);
         System.out.println(userInfoOutput);
     }
@@ -36,8 +37,9 @@ public class UserServiceTest extends DingTalkServiceTest {
     @Test
     public void getDeptMemberTest() {
         DeptUsersInput deptUsersInput = new DeptUsersInput();
-        deptUsersInput.setDeptId("2");
-        userService.getDeptMember(deptUsersInput);
+        deptUsersInput.setDeptId("1");
+        DeptUsersOutput deptUsersOutput = userService.getDeptMember(deptUsersInput);
+        System.out.println(deptUsersOutput);
     }
 
     @Test
