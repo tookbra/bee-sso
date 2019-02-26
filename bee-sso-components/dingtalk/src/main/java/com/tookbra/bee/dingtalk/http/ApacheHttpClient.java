@@ -4,6 +4,7 @@ import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
 import com.tookbra.bee.dingtalk.exception.DingTalkException;
 import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+import com.tookbra.bee.dingtalk.utils.StringUtil;
 import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.*;
@@ -62,7 +63,7 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
     }
 
     @Override
-    public String post(String url, Map<String, String> param) throws IOException {
+    public String post(String url, Map<String, Object> param) throws IOException {
         HttpPost httpPost = new HttpPost(url);
         if(param != null) {
             StringEntity se = new StringEntity(JackSonUtil.objectMapper.writeValueAsString(param), ContentType.APPLICATION_JSON);
@@ -77,11 +78,11 @@ public class ApacheHttpClient extends HttpClientFactory implements HttpClient {
     }
 
     @Override
-    public String get(String url, Map<String, String> param) throws IOException {
+    public String get(String url, Map<String, Object> param) throws IOException {
         try {
             URIBuilder uriBuilder = new URIBuilder(url);
             if(param !=  null) {
-                param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+                param.forEach((k, v) -> uriBuilder.setParameter(k, StringUtil.convertToString(v)));
             }
             HttpGet httpGet = new HttpGet(uriBuilder.build());
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {

@@ -25,7 +25,7 @@ public class DingTalkServiceTest {
         DingTalkProperties dingTalkProperties = new DingTalkProperties();
         dingTalkProperties.setAppKey("dingnczyn00s8nlvncvc");
         dingTalkProperties.setAppSecret("vjOO9s2Mfw-3T9m7LLyIKkW2N1wCjicbBL0VC6soBPBu4n6z2Lk3dLYZBDAZCgG3");
-        dingTalkProperties.setAgentId(191831230);
+        dingTalkProperties.setAgentId(193262077);
         DingTalkProperties.HttpConfig httpConfig = new DingTalkProperties.HttpConfig();
         httpConfig.setEnableProxy(true);
         httpConfig.setProxyPort(8888);

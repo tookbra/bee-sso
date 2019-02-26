@@ -2,7 +2,6 @@ package com.tookbra.bee.dingtalk.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookbra.bee.dingtalk.bean.output.DingTalkOutput;
-import com.tookbra.bee.sso.core.utils.DateUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -36,8 +35,8 @@ public abstract class AbstractDingTalkInput<T extends DingTalkOutput> implements
      * @return
      */
     @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(16);
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>(16);
         List<Field> fields = this.getFields();
         fields.forEach(t -> {
             t.setAccessible(true);
@@ -49,7 +48,7 @@ public abstract class AbstractDingTalkInput<T extends DingTalkOutput> implements
                 key = t.getName();
             }
             try {
-                map.put(key, convertToString(t.get(this)));
+                map.put(key, t.get(this));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -63,34 +62,5 @@ public abstract class AbstractDingTalkInput<T extends DingTalkOutput> implements
         return Arrays.stream(this.getClass().getDeclaredFields())
                 .filter(f -> !f.getName().equals("serialVersionUID"))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     *
-     * @param value
-     * @return
-     */
-    public String convertToString(Object value) {
-       String val;
-       if(value == null) {
-           val = null;
-       } else if (value instanceof String) {
-           val = (String)value;
-       } else if (value instanceof Integer) {
-           val = ((Integer) value).toString();
-       } else if (value instanceof Long) {
-           val = ((Long) value).toString();
-       } else if (value instanceof Float) {
-           val = ((Float) value).toString();
-       } else if (value instanceof Double) {
-           val = ((Double) value).toString();
-       } else if (value instanceof Boolean) {
-           val = ((Boolean) value).toString();
-       } else if (value instanceof Date) {
-           val = DateUtil.formatDateTime((Date) value);
-       } else {
-           val = value.toString();
-       }
-       return val;
     }
 }

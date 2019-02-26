@@ -19,5 +19,10 @@ public class JobMessageOutput extends DingTalkOutput {
      * 创建的发送任务id
      */
     @JsonProperty("task_id")
-    private Integer taskId;
+    private long taskId;
+    /**
+     * 请求id
+     */
+    @JsonProperty("request_id")
+    private String requestId;
 }

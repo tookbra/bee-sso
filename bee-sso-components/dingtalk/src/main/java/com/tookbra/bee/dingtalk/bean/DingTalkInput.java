@@ -26,6 +26,6 @@ public interface DingTalkInput<T extends DingTalkOutput> {
      *
      * @return
      */
-    Map<String, String> toMap();
+    Map<String, Object> toMap();
 
 }

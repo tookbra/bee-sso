@@ -1,10 +1,12 @@
 package com.tookbra.bee.dingtalk.api.message;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tookbra.bee.dingtalk.api.DingTalkServiceTest;
 import com.tookbra.bee.dingtalk.api.message.impl.MessageServiceImpl;
 import com.tookbra.bee.dingtalk.bean.input.message.JobMessageInput;
 import com.tookbra.bee.dingtalk.bean.input.message.Message;
 import com.tookbra.bee.dingtalk.bean.output.message.JobMessageOutput;
+import com.tookbra.bee.dingtalk.enums.MessageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,14 +28,15 @@ public class MessageServiceTest extends DingTalkServiceTest {
     @Test
     public void sendJobMessageTest() {
         JobMessageInput jobMessageInput = new JobMessageInput();
-        jobMessageInput.setAgentId(191831230);
+        jobMessageInput.setAgentId(193262077);
         jobMessageInput.setUserIds("01023131539572");
-        Message.MessageText messageText = new Message.MessageText();
-        messageText.setContent("cccc");
         Message message = new Message();
-        message.setMsgtype("text");
-        message.setText(messageText);
+        message.setMsgType(MessageTypeEnum.TEXT.getType());
+        Message.Text text = new Message.Text();
+        text.setContent("test");
+        message.setText(text);
         jobMessageInput.setMsg(message);
+
         JobMessageOutput jobMessageOutput = messageService.sendJobMessage(jobMessageInput);
         System.out.println(jobMessageOutput);
     }

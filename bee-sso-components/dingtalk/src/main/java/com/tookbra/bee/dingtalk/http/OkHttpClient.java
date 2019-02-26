@@ -4,6 +4,7 @@ package com.tookbra.bee.dingtalk.http;
 import com.tookbra.bee.dingtalk.config.DingTalkProperties;
 import com.tookbra.bee.dingtalk.enums.HttpClientEnum;
 import com.tookbra.bee.dingtalk.repository.DingTalkRepository;
+import com.tookbra.bee.dingtalk.utils.StringUtil;
 import com.tookbra.bee.sso.core.utils.JackSonUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -58,20 +59,20 @@ public class OkHttpClient extends HttpClientFactory implements HttpClient  {
     }
 
     @Override
-    public String post(String url, Map<String, String> params) throws IOException {
+    public String post(String url, Map<String, Object> params) throws IOException {
         RequestBody body = RequestBody.create(MediaType.parse("json"),
-                params == null ? null : JackSonUtil.objectMapper.writeValueAsBytes(params));
+                params == null ? null : JackSonUtil.objectMapper.writeValueAsString(params));
         Request request = new Request.Builder().url(url).post(body).build();
         Response response = okHttpClient.newCall(request).execute();
         return this.filterResponse(response);
     }
 
     @Override
-    public String get(String url, Map<String, String> param) throws IOException {
+    public String get(String url, Map<String, Object> param) throws IOException {
         try {
             URIBuilder uriBuilder = new URIBuilder(url);
             if(param != null) {
-                param.forEach((k, v) -> uriBuilder.setParameter(k, v));
+                param.forEach((k, v) -> uriBuilder.setParameter(k, StringUtil.convertToString(v)));
             }
 
             Request request = new Request.Builder().url(uriBuilder.toString()).build();

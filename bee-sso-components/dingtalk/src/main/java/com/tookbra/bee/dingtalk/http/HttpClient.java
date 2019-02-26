@@ -29,7 +29,7 @@ public interface HttpClient {
      * @return
      * @throws IOException
      */
-    String post(String url, Map<String, String> param) throws IOException;
+    String post(String url, Map<String, Object> param) throws IOException;
 
     /**
      * get请求
@@ -38,7 +38,7 @@ public interface HttpClient {
      * @return
      * @throws IOException
      */
-    String get(String url, Map<String, String> param) throws IOException;
+    String get(String url, Map<String, Object> param) throws IOException;
 
     /**
      * http客户端名称
