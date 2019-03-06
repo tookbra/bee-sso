@@ -16,5 +16,5 @@ public class PageInfo implements Serializable {
 
     private int start = 0;
 
-    private int size = 20;
+    private long size = 20;
 }

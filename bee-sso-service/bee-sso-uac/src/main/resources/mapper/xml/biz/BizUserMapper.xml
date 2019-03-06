@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tookbra.bee.sso.uac.dao.biz.BizUserMapper">
+
+    <select id="selectUserInfoByPage" resultType="com.tookbra.bee.sso.uac.params.output.UserInfoOutput" parameterType="com.tookbra.bee.sso.uac.params.input.UserInfoInput">
+        select a.* from
+        USER a left join DEPARTMENT b on a.dept_id = b.dept_id
+        left join USER_ROLE c on a.user_id = c.user_id
+        left join ROLE d on c.role_id = d.id
+        <where>
+            <if test="input.userName != null and input.userName != ''">
+                and c.user_name like CONCAT('%',#{input.userName,jdbcType=VARCHAR},'%' )
+            </if>
+        </where>
+    </select>
+
+</mapper>

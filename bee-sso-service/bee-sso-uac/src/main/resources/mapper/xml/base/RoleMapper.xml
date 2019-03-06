@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tookbra.bee.sso.uac.dao.base.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tookbra.bee.sso.uac.domain.Role">
+        <id column="ID" property="id" />
+        <result column="ROLE_GROUP_ID" property="roleGroupId" />
+        <result column="ROLE_GROUP_NNAME" property="roleGroupNname" />
+        <result column="ROLE_NAME" property="roleName" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="DELETED" property="deleted" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="MODIFY_TIME" property="modifyTime" />
+        <result column="SYNC_TIME" property="syncTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, ROLE_GROUP_ID, ROLE_GROUP_NNAME, ROLE_NAME, DESCRIPTION, DELETED, CREATED_TIME, MODIFY_TIME, SYNC_TIME
+    </sql>
+
+</mapper>
